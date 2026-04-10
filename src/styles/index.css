@@ -65,6 +65,10 @@ button, input, select, textarea { font: inherit; }
 .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .section-card, .project-card { background: linear-gradient(180deg, rgba(18, 23, 35, 0.94), rgba(14, 19, 29, 0.9)); border-radius: var(--radius-lg); padding: 20px; }
 .section-card h3, .project-card h3, .preview-content h3 { margin: 8px 0 12px; }
+.section-spacer { margin-top: 18px; }
+.section-card code { color: var(--success); }
+.import-list { margin-top: 18px; }
+.import-card { display: grid; gap: 18px; padding: 18px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); }
 .list-row, .build-row, .project-card-top, .project-footer, .inspector-row, .toolbar, .action-row, .slider-row, .toggle-row, .build-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .list-row, .build-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
 .list-row:last-child, .build-row:last-child { border-bottom: 0; }

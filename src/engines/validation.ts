@@ -116,6 +116,16 @@ export function validateProject(
     });
   }
 
+  if (project.livePreviewPath?.includes('weplable-import.html')) {
+    issues.push({
+      id: 'external-playable-diagnostic',
+      severity: 'error',
+      message: 'External playable is registered, but it currently points to an import diagnostic page because the runnable game artifact is incomplete.',
+      source: 'project',
+      tab: 'overview'
+    });
+  }
+
   if (issues.length === 0) {
     issues.push({
       id: 'ready',

@@ -21,6 +21,21 @@ export interface Project {
   notes?: string;
 }
 
+export interface ExternalPlayableCandidate {
+  id: string;
+  name: string;
+  folderName: string;
+  templateId: string;
+  templateName: string;
+  assetPackId: string;
+  assetPackName: string;
+  orientation: 'Portrait' | 'Landscape';
+  runtimePath: string;
+  sourcePath: string;
+  status: 'Ready' | 'Needs Build' | 'Invalid';
+  healthIssues: string[];
+}
+
 export interface TemplateSummary {
   id: string;
   name: string;

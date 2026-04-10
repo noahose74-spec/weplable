@@ -13,6 +13,7 @@ import {
   exportPresets,
   projects as initialProjects
 } from '../data/mockData';
+import { getExternalPlayableById } from '../data/externalPlayables';
 import { validateProject } from '../engines/validation';
 import { createGoblinArtifact, createGoblinDraftSeed, isGoblinProject } from '../features/goblinPlayable';
 import type { Build, CreateProjectInput, EditorFieldDefinition, Project, ValidationIssue } from '../types';
@@ -27,6 +28,7 @@ interface AppStateValue {
   setActiveProjectId: (projectId: string) => void;
   setSelectedPresetName: (presetName: string) => void;
   createProject: (input: CreateProjectInput) => Project;
+  importExternalPlayable: (candidateId: string) => Project | undefined;
   updateProjectMeta: (projectId: string, patch: Partial<Pick<Project, 'name' | 'orientation' | 'updatedAt'>>) => void;
   getProjectById: (projectId: string) => Project | undefined;
   getTabFields: (projectId: string, tab: string) => EditorFieldDefinition[];
@@ -165,14 +167,77 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     createProject: (input) => {
       const project = createMockProject(input);
       setState((current) => ({
-          ...current,
-          projects: [project, ...current.projects],
+        ...current,
+        projects: [project, ...current.projects],
           activeProjectId: project.id,
           drafts: {
             ...current.drafts,
             [project.id]: createDraftMapForProject(project)
           }
-        }));
+      }));
+      return project;
+    },
+    importExternalPlayable: (candidateId) => {
+      const candidate = getExternalPlayableById(candidateId);
+      if (!candidate) {
+        return undefined;
+      }
+
+      const projectId = `import-${candidate.id}`;
+      const existingProject = state.projects.find((project) => project.id === projectId);
+      if (existingProject) {
+        setState((current) => ({ ...current, activeProjectId: existingProject.id }));
+        return existingProject;
+      }
+
+      const project: Project = {
+        id: projectId,
+        name: candidate.name,
+        owner: 'External Import',
+        templateName: candidate.templateName,
+        templateId: candidate.templateId,
+        assetPackName: candidate.assetPackName,
+        assetPackId: candidate.assetPackId,
+        orientation: candidate.orientation,
+        updatedAt: 'Just now',
+        buildStatus: candidate.status === 'Ready' ? 'Ready' : 'Failed',
+        versionCount: 1,
+        currentVersion: 'v0.1.0',
+        livePreviewPath: candidate.runtimePath,
+        notes: `Imported from ${candidate.sourcePath}. ${candidate.healthIssues.join(' ')}`
+      };
+
+      setState((current) => ({
+        ...current,
+        activeProjectId: project.id,
+        projects: [project, ...current.projects],
+        drafts: {
+          ...current.drafts,
+          [project.id]: {
+            ...createDraftMapForProject(project),
+            overview: cloneFieldSet([
+              { id: 'project-name', label: 'Project Name', type: 'text', value: candidate.name },
+              {
+                id: 'orientation',
+                label: 'Orientation',
+                type: 'select',
+                value: candidate.orientation,
+                options: [
+                  { label: 'Portrait', value: 'Portrait' },
+                  { label: 'Landscape', value: 'Landscape' }
+                ]
+              },
+              {
+                id: 'summary',
+                label: 'Project Summary',
+                type: 'textarea',
+                value: `External playable imported from ${candidate.sourcePath}.`
+              }
+            ])
+          }
+        }
+      }));
+
       return project;
     },
     updateProjectMeta: (projectId, patch) => {
