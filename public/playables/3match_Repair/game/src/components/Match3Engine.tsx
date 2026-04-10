@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore, type BlockType, type BlockData } from '../store/gameStore';
-import { ASSETS } from '../config/assets';
+import { RUNTIME_ASSETS as ASSETS } from '../config/runtimeAssets';
 import { BOARD_WIDTH, BOARD_HEIGHT, checkMatches, applyGravityAndGenerate, generateInitialBoard, removeBlocks } from '../utils/match3Logic';
 
 const getBlockImage = (type: BlockType) => {

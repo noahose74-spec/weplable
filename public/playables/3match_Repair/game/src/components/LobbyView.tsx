@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
-import { ASSETS } from '../config/assets';
+import { RUNTIME_ASSETS as ASSETS } from '../config/runtimeAssets';
 
 const FIXTURES = [
   { id: 'BED', color: 'RED', label: 'BED', btnBg: 'bg-red-600', hoverBg: 'hover:bg-red-500', shadow: 'shadow-[0_0_15px_#dc2626]', hitbox: 'right-[10%] top-[30%] w-[35%] h-[30%]', imgPosition: 'top-0 right-0 w-[55%] h-auto object-contain' },

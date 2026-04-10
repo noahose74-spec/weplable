@@ -101,8 +101,9 @@ button, input, select, textarea { font: inherit; }
 .preview-stage { min-height: 620px; display: grid; place-items: center; }
 .preview-device { width: min(360px, 100%); aspect-ratio: 9 / 16; border-radius: 36px; padding: 18px; position: relative; background: linear-gradient(180deg, #161f31, #0f1420); }
 .preview-device.landscape { width: min(620px, 100%); aspect-ratio: 16 / 9; }
-.preview-device.runtime-frame { width: min(960px, 100%); aspect-ratio: 9 / 16; overflow: hidden; padding: 0; border-radius: 28px; background: #0f1420; }
+.preview-device.runtime-frame { width: min(430px, 100%); aspect-ratio: 9 / 16; overflow: hidden; padding: 0; border-radius: 28px; background: #0f1420; }
 .preview-device.runtime-frame.landscape { aspect-ratio: 16 / 9; }
+.preview-device.runtime-frame.landscape { width: min(960px, 100%); }
 .preview-safe-area { position: absolute; inset: 26px; border-radius: 26px; border: 1px dashed rgba(98, 223, 190, 0.42); }
 .preview-content { position: relative; z-index: 1; height: 100%; display: grid; place-content: center; text-align: center; gap: 14px; }
 .playable-iframe { width: 100%; height: 100%; border: 0; background: white; }
