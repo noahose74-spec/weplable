@@ -10,7 +10,8 @@ export function BuildsView() {
     selectedPresetName,
     setSelectedPresetName,
     runBuild,
-    getValidationIssues
+    getValidationIssues,
+    downloadLatestBuild
   } = useAppState();
   const activeProject = getProjectById(activeProjectId);
   const issues = getValidationIssues(activeProjectId);
@@ -33,7 +34,7 @@ export function BuildsView() {
               ))}
             </select>
             <button className="primary-button" onClick={() => runBuild(activeProjectId)}>Run Build</button>
-            <button className="ghost-button">Download Latest</button>
+            <button className="ghost-button" onClick={() => downloadLatestBuild(activeProjectId)}>Download Latest</button>
             <div className={`validation-box ${issues.some((issue) => issue.severity === 'error') ? 'error' : 'warning'}`}>
               {activeProject ? `${activeProject.name} has ${issues.length} current validation issue(s).` : 'No active project selected.'}
             </div>
@@ -53,6 +54,9 @@ export function BuildsView() {
               <div className="build-meta">
                 <span className={`status-pill ${build.status.toLowerCase()}`}>{build.status}</span>
                 <span>{build.artifactSize}</span>
+                {build.artifactUrl ? (
+                  <button className="ghost-button" onClick={() => downloadLatestBuild(build.projectId ?? activeProjectId)}>Download</button>
+                ) : null}
               </div>
             </div>
           ))}

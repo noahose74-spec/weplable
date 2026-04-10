@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { assetPacks, templates } from '../data/mockData';
 import { useAppState } from '../state/AppStateContext';
 import type { CreateProjectInput } from '../types';
 import { PageFrame, SectionCard } from './shared';
 
 export function ProjectsPage() {
+  const navigate = useNavigate();
   const { createProject, projects, setActiveProjectId } = useAppState();
   const [query, setQuery] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -37,7 +38,7 @@ export function ProjectsPage() {
       return;
     }
 
-    createProject(draft);
+    const project = createProject(draft);
     setDraft({
       name: '',
       templateId: templates[0].id,
@@ -45,6 +46,7 @@ export function ProjectsPage() {
       orientation: 'Portrait'
     });
     setIsCreateOpen(false);
+    navigate(`/projects/${project.id}/overview`);
   }
 
   return (
@@ -98,7 +100,7 @@ export function ProjectsPage() {
               </div>
               <div className="project-footer">
                 <span>{project.currentVersion}</span>
-                <span>{project.versionCount} versions</span>
+                <span>{project.livePreviewPath ? 'Live demo attached' : `${project.versionCount} versions`}</span>
               </div>
             </Link>
           ))}

@@ -24,6 +24,7 @@ export function ProjectEditorPage() {
     setActiveProjectId,
     getTabFields,
     updateTabFields,
+    updateProjectMeta,
     getValidationIssues,
     selectedPresetName,
     setSelectedPresetName
@@ -42,6 +43,14 @@ export function ProjectEditorPage() {
     setFields((current) => {
       const nextFields = current.map((field) => (field.id === id ? { ...field, value: nextValue } : field));
       updateTabFields(projectId, tab, nextFields);
+      if (tab === 'overview') {
+        if (id === 'project-name' && typeof nextValue === 'string') {
+          updateProjectMeta(projectId, { name: nextValue, updatedAt: 'Just now' });
+        }
+        if (id === 'orientation' && typeof nextValue === 'string') {
+          updateProjectMeta(projectId, { orientation: nextValue, updatedAt: 'Just now' });
+        }
+      }
       if (id === 'preset' && typeof nextValue === 'string') {
         setSelectedPresetName(nextValue);
       }
@@ -154,6 +163,11 @@ export function ProjectEditorPage() {
             <div className="inspector-row"><span>Preset</span><strong>{selectedPresetName}</strong></div>
             <div className="inspector-row"><span>Validation</span><strong>{validationIssues.length} issues</strong></div>
           </div>
+          {project.notes ? (
+            <div className="validation-box warning">
+              {project.notes}
+            </div>
+          ) : null}
           {validationIssues.slice(0, 3).map((issue) => (
             <div key={issue.id} className={`validation-box ${issue.severity === 'error' ? 'error' : 'warning'}`}>
               {issue.message}
@@ -176,6 +190,11 @@ export function ProjectEditorPage() {
 
       <div className="editor-layout">
         <SectionCard title={tabLabels[tab] ?? 'Overview'} eyebrow="Project Editor">
+          {project.livePreviewPath ? (
+            <div className="runtime-banner">
+              This project is backed by a real imported playable runtime. Use Preview to test the actual GoblinMatch game inside WePlable.
+            </div>
+          ) : null}
           <div className="form-grid">
             {fields.map(renderField)}
           </div>

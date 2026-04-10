@@ -75,6 +75,15 @@ export const templatePlugins: TemplatePlugin[] = [
 
 export const assetPacks: AssetPack[] = [
   {
+    id: 'goblin-match-pack',
+    name: 'Goblin Match Legacy',
+    version: '0.9.0',
+    previewImage: 'GM',
+    dependencyStatus: 'Healthy',
+    linkedProjectCount: 1,
+    categories: ['Backgrounds', 'Tiles', 'UI', 'Leaders', 'Icons']
+  },
+  {
     id: 'candy-pop-pack',
     name: 'Candy Pop',
     version: '2.1.0',
@@ -95,6 +104,22 @@ export const assetPacks: AssetPack[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    id: 'goblin-demo',
+    name: 'Goblin Match Demo',
+    owner: 'Creative Tech',
+    templateName: 'Match-3 Classic',
+    templateId: 'match3-classic',
+    assetPackName: 'Goblin Match Legacy',
+    assetPackId: 'goblin-match-pack',
+    orientation: 'Portrait',
+    updatedAt: 'Just now',
+    buildStatus: 'Ready',
+    versionCount: 1,
+    currentVersion: 'v1.0.0',
+    livePreviewPath: '/playables/goblin-match/index.html',
+    notes: 'Imported runnable GoblinMatch prototype mounted as a WePlable test project.'
+  },
   {
     id: 'p1',
     name: 'Candy Quest KR Spring',

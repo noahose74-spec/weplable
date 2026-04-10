@@ -17,6 +17,8 @@ export interface Project {
   buildStatus: 'Draft' | 'Ready' | 'Validating' | 'Building' | 'Success' | 'Failed';
   versionCount: number;
   currentVersion: string;
+  livePreviewPath?: string;
+  notes?: string;
 }
 
 export interface TemplateSummary {
@@ -68,12 +70,15 @@ export interface AssetPack {
 
 export interface Build {
   id: string;
+  projectId?: string;
   projectName: string;
   preset: string;
   status: 'Draft' | 'Ready' | 'Validating' | 'Building' | 'Success' | 'Failed';
   createdAt: string;
   artifactSize: string;
   logSummary: string;
+  artifactName?: string;
+  artifactUrl?: string;
 }
 
 export interface CreateProjectInput {

@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { navItems } from '../data/mockData';
 import { useAppState } from '../state/AppStateContext';
 
@@ -8,7 +8,8 @@ function isProjectContext(pathname: string) {
 
 export function AppShell() {
   const location = useLocation();
-  const { activeProjectId, getProjectById } = useAppState();
+  const navigate = useNavigate();
+  const { activeProjectId, getProjectById, downloadLatestBuild } = useAppState();
   const activeProject = getProjectById(activeProjectId);
   const inProject = isProjectContext(location.pathname);
 
@@ -64,9 +65,31 @@ export function AppShell() {
           </div>
 
           <div className="topbar-actions">
-            <button className="ghost-button">Preview</button>
-            <button className="ghost-button">Build</button>
-            <button className="primary-button">Download</button>
+            <button
+              className="ghost-button"
+              onClick={() => navigate('/preview')}
+              disabled={!activeProject}
+            >
+              Preview
+            </button>
+            <button
+              className="ghost-button"
+              onClick={() => navigate('/builds')}
+              disabled={!activeProject}
+            >
+              Build
+            </button>
+            <button
+              className="primary-button"
+              onClick={() => {
+                if (!downloadLatestBuild(activeProjectId)) {
+                  navigate('/builds');
+                }
+              }}
+              disabled={!activeProject}
+            >
+              Download
+            </button>
           </div>
         </header>
 

@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppShell } from './shell/AppShell';
 import { AssetPacksPage } from './views/AssetPacksPage';
 import { BuildsView } from './views/BuildsView';
-import { DashboardPage } from './views/DashboardPage';
+import { DashboardView } from './views/DashboardView';
 import { DeveloperPage } from './views/DeveloperPage';
 import { PreviewPage } from './views/PreviewPage';
 import { ProjectEditorPage } from './views/ProjectEditorPage';
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     element: <AppShell />,
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
-      { path: 'dashboard', element: <DashboardPage /> },
+      { path: 'dashboard', element: <DashboardView /> },
       { path: 'projects', element: <ProjectsPage /> },
       { path: 'projects/:projectId/:tab?', element: <ProjectEditorPage /> },
       { path: 'templates', element: <TemplatesPage /> },

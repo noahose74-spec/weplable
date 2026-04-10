@@ -1,0 +1,38 @@
+export const GOBLINS = [
+  {
+    id: "red",
+    name: "Red Goblin",
+    color: "red",
+    role: "Burst",
+    description: "Leader matches blast a small area around the matched region.",
+    portrait: "./public/COMPONENTS/GameObjects/76x76/Goblin_Red.png",
+    itemLabel: "Burst Item",
+  },
+  {
+    id: "blue",
+    name: "Blue Goblin",
+    color: "blue",
+    role: "Clear Lines",
+    description: "Leader matches clear an extra row or column through the match.",
+    portrait: "./public/COMPONENTS/GameObjects/76x76/Goblin_Blue.png",
+    itemLabel: "Line Item",
+  },
+  {
+    id: "green",
+    name: "Green Goblin",
+    color: "green",
+    role: "Break Obstacles",
+    description: "Leader matches focus extra damage on nearby crates.",
+    portrait: "./public/COMPONENTS/GameObjects/76x76/Goblin_Green.png",
+    itemLabel: "Crate Breaker",
+  },
+  {
+    id: "yellow",
+    name: "Yellow Goblin",
+    color: "yellow",
+    role: "Combo / Utility",
+    description: "Leader matches remove bonus yellow blocks for extra cascades.",
+    portrait: "./public/COMPONENTS/GameObjects/76x76/Goblin_Yellow.png",
+    itemLabel: "Utility Item",
+  },
+];
